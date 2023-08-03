@@ -4,13 +4,17 @@
 echo "started..."
 while true
 do
+  # set a array of charachters 
   var="abcdefghijklmnopqrstuvwxyz123456789 +-*"
   letter="${var:$(( RANDOM % ${#var} )):1}"
-  #echo $n
+  
+  # Send the keyboard events 
   echo "tell application \"System Events\" to keystroke \"$letter\"" | osascript
 
+  # Get a random number between 1 to 3
   t=$(jot -r 1  1 3)
-  #echo $t
+
+  # Execute sleep for the above random sec
   sleep $t
 
   # for letter in {a..z} ; do
