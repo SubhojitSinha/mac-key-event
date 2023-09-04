@@ -5,16 +5,16 @@
 # MYSELF="$(realpath "$0")"
 # MYDIR="${MYSELF%/*}"
 # if [ -z "$1" ]; then
-#     file="$MYDIR/probs/readfile.php"
+#     FILE="$MYDIR/probs/readfile.php"
 # else
-#     file=$1
+#     FILE=$1
 # fi
 
 # Usage
 # bash ~/Documents/your/script/path/example3.bash /Users/your/reference/document.extention
 
 NEWLINE="\n\r"
-file=$1
+FILE=$1
 
 # FUNCTION TO INTRODUCE RANDOM SEC OF SLEEP
 sleeper(){
@@ -29,7 +29,7 @@ keyevent_generator() {
         # https://macbiblioblog.blogspot.com/2014/12/key-codes-for-function-and-special-keys.html
         echo "tell application \"System Events\" to key code 42" | osascript
     else
-        echo "tell application \"System Events\" to keystroke \"$letter\"" | osascript
+        echo "tell application \"System Events\" to keystroke \"$CHAR\"" | osascript
     fi
 }
 
@@ -38,8 +38,8 @@ char_iterator(){
     LINE=$1
     for (( i=0; i<${#LINE}; i++ )); do
         sleeper .1 1
-        letter="${LINE:$i:1}"
-        keyevent_generator $letter
+        CHAR="${LINE:$i:1}"
+        keyevent_generator $CHAR
     done
 }
 
@@ -47,8 +47,8 @@ char_iterator(){
 
 # READING THE FILE LINE BY LINE AND GENERATING KEY EVENTS
 # VIA FUNCTION CALLS
-while read -r line; do
-    char_iterator "$line"
+while read -r LINE; do
+    char_iterator "$LINE"
     # keyevent_generator $NEWLINE
     echo "tell application \"System Events\" to keystroke \"$NEWLINE\"" | osascript
-done <$file
+done <$FILE
