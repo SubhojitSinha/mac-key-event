@@ -2,10 +2,10 @@
 # Simulates hitting a key on OS X
 # http://apple.stackexchange.com/a/63899/72339
 echo "started..."
+var="abcdefghijklmnopqrstuvwxyz123456789 +-*"
 while true
 do
   # set a array of charachters 
-  var="abcdefghijklmnopqrstuvwxyz123456789 +-*"
   letter="${var:$(( RANDOM % ${#var} )):1}"
   
   # Send the keyboard events 

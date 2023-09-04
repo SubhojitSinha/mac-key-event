@@ -72,11 +72,12 @@ var="Basically, for non-default non-null values of $IFS,
 
 array=($(echo "$var" | tr ',' '\n'))
 space=" "
-newline="\n"
+newline="\r"
 counter=0
+break_feed=10 #newline after words
 # echo "${array[2]}"
 for index in "${!array[@]}"; do
-    # ((counter++))
+    ((counter++))
     word="${array[index]}"
 
     for ((i=0;i<${#word};i++)); do
@@ -91,12 +92,12 @@ for index in "${!array[@]}"; do
     # echo "$index ${array[index]}"
 
     # echo " "
-    # if [ $counter -eq 3 ]; then
-    #     counter=0
-    #     echo "tell application \"System Events\" to keystroke \"$newline\"" | osascript
-    # else
+    if [ $counter -eq $break_feed ]; then
+        counter=0
+        echo "tell application \"System Events\" to keystroke \"$newline\"" | osascript
+    else
         echo "tell application \"System Events\" to keystroke \"$space\"" | osascript
-    # fi
+    fi
 
     t=$(jot -r 1  .1 2)
     sleep $t
