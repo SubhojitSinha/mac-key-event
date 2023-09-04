@@ -14,3 +14,5 @@ In this example we are trying to write a wrong paragraph.
 
 ## `example3.bash`
 Reading a file line by line and mimic the same using the keyboard events.
+-- Usage
+-- -- `bash ~/Documents/your/script/path/example3.bash /Users/your/reference/document.extention`
