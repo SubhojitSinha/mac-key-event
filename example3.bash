@@ -18,8 +18,8 @@ FILE=$1
 
 # FUNCTION TO INTRODUCE RANDOM SEC OF SLEEP
 sleeper(){
-    lt=$(jot -r 1  $1 $2)
-    sleep $lt
+    duration=$(jot -r 1  $1 $2)
+    sleep $duration
 }
 
 # FINCTION TO GENERATE SPECIFIC KEYEVENTS ACCORDING TO PASSED CHARACHTER
@@ -33,13 +33,13 @@ keyevent_generator() {
     fi
 }
 
-# ITERATE OVER EVERY CHAR IN THE LINE
+# ITERATE OVE_name(R EVERY CHAR IN THE LINE
 char_iterator(){
     LINE=$1
     for (( i=0; i<${#LINE}; i++ )); do
         sleeper .1 1
         CHAR="${LINE:$i:1}"
-        keyevent_generator $CHAR
+        keyevent_generator "$CHAR"
     done
 }
 
@@ -49,6 +49,6 @@ char_iterator(){
 # VIA FUNCTION CALLS
 while read -r LINE; do
     char_iterator "$LINE"
-    # keyevent_generator $NEWLINE
-    echo "tell application \"System Events\" to keystroke \"$NEWLINE\"" | osascript
+    keyevent_generator "$NEWLINE"
+    # echo "tell application \"System Events\" to keystroke \"$NEWLINE\"" | osascript
 done <$FILE
