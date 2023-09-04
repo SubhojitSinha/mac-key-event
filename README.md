@@ -1,7 +1,7 @@
 # mac-key-event
 Generate keyboard event in MAC using bash script
 
-## `example1.bash``
+## `example1.bash`
 Basic usage.
 1. Here we are using a long string of all alphabets
 2. Sending key events by randomly selecting alphabets from the string
