@@ -25,12 +25,19 @@ sleeper(){
 # FINCTION TO GENERATE SPECIFIC KEYEVENTS ACCORDING TO PASSED CHARACHTER
 keyevent_generator() {
     CHAR=$1
+    
     if [ "$CHAR" == "\\" ]; then
-        # https://macbiblioblog.blogspot.com/2014/12/key-codes-for-function-and-special-keys.html
         echo "tell application \"System Events\" to key code 42" | osascript
+    elif [ "$CHAR" == "\"" ]; then    
+        # echo "tell application \"System Events\" to key code 39" | osascript
+        echo "tell application \"System Events\" to key code 39 using { shift down }" | osascript
+
+    elif [ "$CHAR" == "'" ]; then    
+        echo "tell application \"System Events\" to key code 39" | osascript
     else
         echo "tell application \"System Events\" to keystroke \"$CHAR\"" | osascript
     fi
+    # https://macbiblioblog.blogspot.com/2014/12/key-codes-for-function-and-special-keys.html
 }
 
 # ITERATE OVE_name(R EVERY CHAR IN THE LINE
