@@ -1,17 +1,32 @@
-@if (@CodeSection == @Batch) @then
 @echo off
-set SendKeys=CScript //nologo //E:JScript "%~F0"
-set /a num=1
-::set list=[ABCDabc]
-::echo list[%3]
-:while
-(
-   set /a "ran = %random% * 26 / 32768 + 1"
-   %SendKeys% %ran%
-   set /a num=%random% %%3 +0
-   timeout /t %num% >nul
-   goto :while
+setlocal EnableDelayedExpansion
+
+set "filename=%~1"
+
+if not defined filename (
+  echo Error: source filename not provided
+  exit /b 1
 )
-@end
-var WshShell = WScript.CreateObject("WScript.Shell");
-WshShell.SendKeys(WScript.Arguments(0));
+
+if not exist "%filename%" (
+  echo Error: source file not found
+  exit /b 1
+)
+
+for /F "delims=" %%a in ('type "%filename%"') do (
+  set "line=%%a"
+  call :simulateLine
+  cscript //nologo //E:JScript "%~f0" "{ENTER}"
+)
+
+exit /b
+
+:simulateLine
+set "line=!line:"=\"!"
+for %%C in (!line!) do (
+   set /a "random_sleep=!random! %% 3 + 1"
+   timeout /t %random_sleep% >nul
+   csript //nologo //E:JScript "%%~C".charCodeAt(0)
+
+)
+exit /b
